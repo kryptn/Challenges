@@ -7,24 +7,39 @@ from itertools import count
 
 data = 'ojvtpuvg'
 
-def v1(seed):
+def check(code):
+    hashed = md5(code).hexdigest()
 
-    def check(inp):
+    if hashed.startswith('00000'):
+        return hashed[5], hashed[6]
+    return None
 
-        h = md5(inp).hexdigest()
-
-        if h.startswith('00000'):
-            print(inp)
-            return h[5]
-        return ''
-
+def crack_basic(seed):
+    counter = count()
     password = ''
-
-    c = count(0)
     while len(password) < 8:
-        password += check(data+str(c.next()))
+        r = check(seed+str(counter.next()))
+        if not r:
+            continue
+        password += r[0]
 
-    print password
+    return password
+
+def crack_adv(seed):
+    counter = count()
+    password = {}
+    while len(password) < 8:
+        r = check(seed+str(counter.next()))
+        if not r:
+            continue
+        pos, c = r
+        if pos.isdigit() and int(pos) < 8 and pos not in password:
+            password[pos] = c
+
+    return ''.join(v for k,v in sorted(password.items(), key=lambda x: x[0]))
+
+
+
 
 def v2(seed):
 
