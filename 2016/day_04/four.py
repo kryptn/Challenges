@@ -2,7 +2,7 @@
 from collections import Counter, namedtuple
 from string import ascii_lowercase as alpha
 
-with open('data/four/input.txt') as fd:
+with open('input.txt') as fd:
     data = fd.read().splitlines()
 
 test = 'aaaaa-bbb-z-y-x-123[abxyz]'

@@ -33,7 +33,7 @@ class Grid:
                 self.visited_twice.append(pos)
 
 grid = Grid()
-with open('data/one/dirs.txt') as fd:
+with open('input.txt') as fd:
     dirs = [Dirs(x) for x in fd.read().split(', ')]
 
 for d in dirs:

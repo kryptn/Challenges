@@ -1,6 +1,6 @@
 from itertools import izip_longest
 
-with open('data/three/input.txt') as fd:
+with open('input.txt') as fd:
     data = [[int(x) for x in y.split()] for y in fd.read().splitlines()]
 
 

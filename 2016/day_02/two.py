@@ -1,4 +1,4 @@
-with open('data/two/input.txt') as fd:
+with open('input.txt') as fd:
     code = fd.read()
 
 # 1 2 3
