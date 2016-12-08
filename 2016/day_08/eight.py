@@ -11,8 +11,7 @@ class Screen:
     def shift_col(self, col, spaces):
         self.grid = zip(*self.grid)
         self.shift_row(col, spaces)
-        self.grid = zip(*self.grid)
-        self.grid = [list(x) for x in self.grid]
+        self.grid = [list(x) for x in zip(*self.grid)]
 
     def enable(self, length, height):
         for x in range(length):
@@ -20,9 +19,8 @@ class Screen:
                 self.grid[y][x] = True
 
 
-    def p(self):
-        for row in self.grid:
-            print ' '.join('#' if x else '.' for x in row)
+    def __str__(self):
+        return '\n'.join(' '.join('#' if x else '.' for x in row) for row in self.grid)
 
     def parse(self, inp):
         i = inp.split()
@@ -40,5 +38,5 @@ for d in data.splitlines():
     s.parse(d)
 
 print('star one: {}\nstar two:\n'.format(sum(sum(x) for x in s.grid)))
-s.p()
+print(s)
 
