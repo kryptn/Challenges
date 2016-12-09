@@ -1,21 +1,28 @@
 with open('input.txt') as fd:
-    data = fd.read()
+    data = fd.read().strip()
 
-def expand(s):
-    if s[0] == '(':
-        n = s.find(')')
-        dist, repeat = s[1:n].split('x')
-        return s[n+1:n+1+int(dist)] * int(repeat), s[n+int(dist)+1:]
-    else:
-        return s[0], s[1:]
-
-def decompress(s):
-    final = ''
-
+def v2(s, do_v2=False):
+    total = 0
+ 
     while s:
-        f, s = expand(s)
-        final += f
+        if s[0] != '(':
+            total += 1
+            s = s[1:]
+            continue
 
-    return final
+        n = s.find(')')
 
-print('star one: {}'.format(len(decompress(data))))
+        length, repeat = [int(x) for x in s[1:n].split('x')]
+
+        if do_v2:
+            total += v2(s[n+1: n+1+length], True) * repeat
+        else:
+            total += length * repeat
+
+        s = s[n+1+length:]
+
+    return total
+
+
+print('star one: {}'.format(v2(data)))
+print('star two: {}'.format(v2(data, True)))
