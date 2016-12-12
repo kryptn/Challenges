@@ -3,7 +3,6 @@ with open('input.txt') as fd:
 
 class BunnyInterpreter:
 
-
     def __init__(self, instructions, a=0, b=0, c=0, d=0):
         self.a = a
         self.b = b
@@ -12,13 +11,13 @@ class BunnyInterpreter:
         self.instructions = instructions
         self.pointer = 0
 
-    def cpy(self, source, dest):
-        if source.isdigit():
-            source = int(source)
-        else:
-            source = getattr(self, source)
+    def grab(self, x):
+        if x in 'abcd':
+            return getattr(self, x)
+        return int(x)
 
-        setattr(self, dest, source)
+    def cpy(self, source, dest):
+        setattr(self, dest, self.grab(source))
 
     def inc(self, register):
         temp = getattr(self, register)
@@ -29,13 +28,7 @@ class BunnyInterpreter:
         setattr(self, register, temp-1)
 
     def jnz(self, c, dist):
-
-        if c in 'abcd':
-            c = getattr(self, c)
-        elif c.isdigit():
-            c = int(c)
-
-        if c != 0:
+        if self.grab(c) != 0:
             self.pointer += int(dist)
         else:
             self.pointer += 1
