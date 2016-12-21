@@ -1,3 +1,5 @@
+from itertools import permutations
+
 with open('input.txt') as fd:
     instructions = fd.read().splitlines()
 
@@ -60,3 +62,11 @@ class Parser:
 
 p = Parser('abcdefgh', instructions)
 print(''.join(p.seed))
+
+end = 'fbgdceah'
+for perm in permutations(end):
+    p = Parser(perm, instructions)
+    if ''.join(p.seed) == end:
+        print(''.join(perm))
+        break
+    
