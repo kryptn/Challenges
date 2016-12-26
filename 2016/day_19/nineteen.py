@@ -36,4 +36,12 @@ def eliminate(n):
 
     return current.pos+1
 
-eliminate(data)
+#eliminate(data)
+
+def mathy_part2(n, pos=1):
+    while 3 * pos <= n:
+        pos *= 3
+
+    if n == pos:
+        return n
+    return n - pos + max(n-2*pos, 0)
