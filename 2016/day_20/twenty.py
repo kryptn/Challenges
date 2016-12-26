@@ -10,7 +10,11 @@ def test_ip(n):
             return True
     return False
 
-data = sorted([int(x), int(y)] for x,y in [z.split('-') for z in data.splitlines()])
+blacklists = [x.split('-') for x in data.splitlines()]
+blacklists.append(['-1','-1'])
+
+data = sorted(int(x), int(y) for x,y in blacklists)
+
 
 candidates = [x[1]+1 for x in data]
 
