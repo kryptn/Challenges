@@ -15,9 +15,9 @@ class Node:
 
         if self.used == 0:
             self.disp = '_'
-        elif self.size > 500:
+        elif self.size > 100:
             self.disp = 'X'
-        elif self.x == 0 and self.y == 26:
+        elif self.x == 26 and self.y == 0:
             self.disp = 'G'
         elif self.x == self.y == 0:
             self.disp = 'T'
@@ -45,7 +45,7 @@ def valid(x, y):
 
 def print_grid(ns):
     for x in xrange(0,27*27,27):
-        print(''.join(str(n) for n in ns[x:x+27]))
+        print(' '.join(str(n) for n in ns[x:x+27]))
 
 nodes = [Node(x) for x in data.splitlines()]
 viable = [pair for pair in square(nodes) if valid(*pair)]
